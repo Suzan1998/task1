@@ -1,9 +1,10 @@
-1- I wrote a script to find the values of memory , disk and CPU using the commands(free- m, df, mpstat -P ALL).
-2- Then I did some filtering to get the exact value for memory used, disk freeand used, and cpu utiliazition.
-3- Then find the averages as requiered. 
-4- Then I wrote a crontab job that is executed every hour. in the crontab file which will execute the script written.
+1- I wrote two scripts the first one to find the values of memory , disk and CPU using the commands(free- m, df, mpstat -P ALL) with some filtering to get the exact value for memory used, disk freeand used, and cpu utiliazition and store the values in different files memory file to store the values of mamory, cpu file to store the values of cpu and so on. this script is executed every miniute using crontab written in crontab file : * * * * *  /root/script.sh
+
+3- Then to find the averages for every five reading another job will be executed every five minitues to find the avg of the current five values. this job will execute script2.sh that find the average for example for the five values in memory file and add the avg result to memoryAvg file then clean the file that contains the memory reading. and so on for other avgs requiered.  
+
 5- Then I wrote index.html file that has links to the files that contain averages reqiuerd in the task.
 the index file and the avgs files are in path /var/www/html and the web page: http://192.168.205.52/myWebPage/
-Note: i wrote the following in the the crontab file: 0 * * * *  /root/script.sh
+Note: i wrote the following in the the crontab file: 
+* * * * *  /root/script.sh #to execute script.sh every minite and get the readings
+* * * * * /root/script2.sh # to execute script2.sh every five miniutes to find averages needed.
 
-## there are some comments in the script for more details.
