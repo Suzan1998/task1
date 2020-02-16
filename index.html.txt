@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+</head>
+<body>
+ <table style="width:50%"> 
+<tr>
+<h2>Details Links</h2></br>
+</tr>
+<tr>
+<td>
+<a href="memoryd">Memory Readings</a></br>
+</td>
+<td>
+<a href="cpud">CPU Readings</a></br>
+</td>
+<td>
+<a href="diskd">Disk Readings</a></br>
+</td>
+<td>
+<a href="memoryAvg">Memory Average</a></br>
+</td>
+<td>
+<a href="cpuAvg">CPU Average</a></br>
+</td>
+<td>
+<a href="diskAvg">Disk Average</a></br>
+</td>
+</tr>
+</table>
