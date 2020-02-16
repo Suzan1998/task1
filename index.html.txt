@@ -4,6 +4,7 @@
 <style>
 table, th, td {
   border: 1px solid black;
+  
 }
 </style>
 </head>
@@ -14,13 +15,13 @@ table, th, td {
 </tr>
 <tr>
 <td>
-<a href="memoryd">Memory Readings</a></br>
+<a href="memoryd">Memory Table</a></br>
 </td>
 <td>
-<a href="cpud">CPU Readings</a></br>
+<a href="cpud">CPU Table</a></br>
 </td>
 <td>
-<a href="diskd">Disk Readings</a></br>
+<a href="diskd">Disk Table</a></br>
 </td>
 <td>
 <a href="memoryAvg">Memory Average</a></br>
@@ -31,5 +32,12 @@ table, th, td {
 <td>
 <a href="diskAvg">Disk Average</a></br>
 </td>
+<a href="memoryHistory">Memory History</a></br>
+</td>
+<td>
+<a href="cpuHistory">CPU History</a></br>
+</td>
+<td>
+<a href="diskHistory">Disk History</a></br>
 </tr>
 </table>
