@@ -1,0 +1,59 @@
+#/bin/bash
+
+## these files dynamicly change every hour a new values overwrite to it 
+echo " CPU UTILIZATION :" > /var/www/html/cpud  && mpstat -P ALL >  /var/www/html/cpud  
+echo " Memory Usage :" >  /var/www/html/memoryd  && free -m >  /var/www/html/memoryd  
+echo " Disk Usage: " > /var/www/html/diskd  && df -a >  /var/www/html/diskd  
+echo " Disk Free: " >  /var/www/html/diskd  && df -h >  /var/www/html/diskd
+
+  
+###to find averages
+## to find mem Avg
+echo "Memory Used Average at TimeStmamp `date`  " >>/var/www/html/memoryAvg ##to add timestamp 
+
+MEM="$(cat /var/www/html/memoryd | grep -i "Mem" | tr -s ' ' | cut -d  ' ' -f 3)" ## filtering to ge mem value 
+echo $MEM >>/var/www/html/memory ## added the value of mem to this file every time job executed
+cat /var/www/html/memory| awk '{ memtotal += $1; count1++ } END { print memtotal/count1  }' >> /var/www/html/memoryAvg ##find the avg of values in the memory file
+
+
+## to find CPU AVG 
+echo "CPU Idle Average at TimeStmamp `date`  " >>/var/www/html/cpuAvg  ##to add timestamp
+CPUIDLE="$(cat /var/www/html/cpud | grep -i "all"  | tr -s ' ' | cut -d  ' ' -f 13)" ## filtering to get cpuidle value
+echo $CPUIDLE >>/var/www/html/cpu ##this file cpu add a new value of cpu idle every time the job executed to help in finding the avg of cpu idel vlue
+cat /var/www/html/cpu| awk '{ cpuitotal += $1; count2++ } END { print cpuitotal/count2  }' >> /var/www/html/cpuAvg ##find the avg of values in cpu file that comntains idle values
+
+## using the same way described above to find avg of cpu idle
+echo "CPU Used Average:\n" >>/var/www/html/cpuAvg  
+CPUUSED="$(mpstat -P ALL |grep -i "all" |awk '{print (100.00-$13)}')"
+echo $CPUUSED >>/var/www/html/cpuused
+cat /var/www/html/cpuused| awk '{ cpuutotal += $1; count3++ } END { print cpuutotal/count3  }' >> /var/www/html/cpuAvg 
+
+
+## to find disk used avg also using the same way
+echo "Disk Used Avg at TimeStmamp `date`  " >>/var/www/html/diskAvg ##to add timestamp
+DISKUSED="$(df |grep -i "0" |awk '{diskutotal += $3; count4++ } END { print diskutotal  }')"
+echo $DISKUSED >>/var/www/html/disk 
+cat /var/www/html/disk| awk '{ diskuutotal += $1; count5++ } END { print diskuutotal/count5  }' >> /var/www/html/diskAvg 
+
+## to find disk free avg
+echo "Disk Free at TimeStamp `date` " >>/var/www/html/diskAvg  ##to add timestamp
+DISKFREE="$(df |grep -i "0" |awk '{diskftotal += $4; count6++ } END { print diskftotal  }')"
+echo $DISKFREE >>/var/www/html/diskfree 
+cat /var/www/html/diskfree| awk '{ diskfftotal += $1; count7++ } END { print diskfftotal/count7  }' >> /var/www/html/diskAvg 
+echo
+
+
+
+
+
+
+
+
+
+
+
+   
+ 
+  
+   
+   

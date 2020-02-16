@@ -1,0 +1,9 @@
+1- I wrote a script to find the values of memory , disk and CPU using the commands(free- m, df, mpstat -P ALL).
+2- Then I did some filtering to get the exact value for memory used, disk freeand used, and cpu utiliazition.
+3- Then find the averages as requiered. 
+4- Then I wrote a crontab job that is executed every hour. in the crontab file which will execute the script written.
+5- Then I wrote index.html file that has links to the files that contain averages reqiuerd in the task.
+the index file and the avgs files are in path /var/www/html and the web page: http://192.168.205.52/myWebPage/
+Note: i wrote the following in the the crontab file: 0 * * * *  /root/script.sh
+
+## there are some comments in the script for more details.
