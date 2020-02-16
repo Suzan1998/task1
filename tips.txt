@@ -6,5 +6,5 @@
 the index file and the avgs files are in path /var/www/html and the web page: http://192.168.205.52/myWebPage/
 Note: i wrote the following in the the crontab file: 
 * * * * *  /root/script.sh #to execute script.sh every minite and get the readings
-* * * * * /root/script2.sh # to execute script2.sh every five miniutes to find averages needed.
+*/5 * * * * /root/script2.sh # to execute script2.sh every five miniutes to find averages needed.
 
