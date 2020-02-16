@@ -1,34 +1,49 @@
 #/bin/bash
 ##dynamic files 
-echo " CPU UTILIZATION :" > /var/www/html/cpud  && mpstat -P ALL >  /var/www/html/cpud  
-echo " Memory Usage :" >  /var/www/html/memoryd  && free -m >  /var/www/html/memoryd  
-echo " Disk Usage: " > /var/www/html/diskd  && df -a >  /var/www/html/diskd  
-echo " Disk Free: " >  /var/www/html/diskd  && df -h >  /var/www/html/diskd
+echo " CPU UTILIZATION :" > /var/www/html/cpud  && mpstat -P ALL >  /var/www/html/cpud #table file 
+echo " Memory Usage :" >  /var/www/html/memoryd  && free -m >  /var/www/html/memoryd  #table file
+echo " Disk Usage: " > /var/www/html/diskd  && df -a >  /var/www/html/diskd  #table file
+echo " Disk Free: " >  /var/www/html/diskd  && df -h >  /var/www/html/diskdv #table file
 
   
 ###to find reaing
 ## to find mem reading
 MEM="$(cat /var/www/html/memoryd | grep -i "Mem" | tr -s ' ' | cut -d  ' ' -f 3)"
 echo $MEM >>/var/www/html/memory
- 
+echo "`date`" >>/var/www/html/memoryHistory
+echo "Memory Used:">>/var/www/html/memoryHistory
+echo $MEM >>/var/www/html/memoryHistory
+echo >>/var/www/html/memoryHistory#new line
 
 ## to find CPU reading
 CPUIDLE="$(cat /var/www/html/cpud | grep -i "all"  | tr -s ' ' | cut -d  ' ' -f 13)"
 echo $CPUIDLE >>/var/www/html/cpu
- 
+echo "`date`" >>/var/www/html/cpuHistory
+echo "Cpu Idle:" >>/var/www/html/cpuHistory
+echo $CPUIDLE >>/var/www/html/cpuHistory 
+echo  >>/var/www/html/cpuHistory
+
 CPUUSED="$(mpstat -P ALL |grep -i "all" |awk '{print (100.00-$13)}')"
 echo $CPUUSED >>/var/www/html/cpuused
+echo "Cpu Used:" >>/var/www/html/cpuHistory
+echo $CPUUSED >>/var/www/html/cpuHistory
+echo >>/var/www/html/cpuHistory
 
 ## to find disk used reading
 ##echo "Disk Used Avg at TimeStmamp `date`  " >>/var/www/html/diskAvg
 DISKUSED="$(df |grep -i "0" |awk '{diskutotal += $3; count4++ } END { print diskutotal  }')" ## it will get the sum of used readings coloumn
 echo $DISKUSED >>/var/www/html/disk 
+echo "`date`" >>/var/www/html/diskHistory
+echo "Disk Used:" >>/var/www/html/diskHistory
+echo $DISKUSED >>/var/www/html/diskHistory
+echo  >>/var/www/html/diskHistory
  
 ## to find disk free reading
 DISKFREE="$(df |grep -i "0" |awk '{diskftotal += $4; count6++ } END { print diskftotal  }')" ## it will get the sum of free readings coloumn
 echo $DISKFREE >>/var/www/html/diskfree 
-
-
+echo "Disk Free:" >>/var/www/html/diskHistory
+echo $DISKFREE >>/var/www/html/diskHistory
+echo  >>/var/www/html/diskHistory
 
 
 
