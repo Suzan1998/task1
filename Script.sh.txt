@@ -2,8 +2,8 @@
 ##dynamic files 
 echo " CPU UTILIZATION :" > /var/www/html/cpud  && mpstat -P ALL >  /var/www/html/cpud #table file 
 echo " Memory Usage :" >  /var/www/html/memoryd  && free -m >  /var/www/html/memoryd  #table file
-echo " Disk Usage: " > /var/www/html/diskd  && df -a >  /var/www/html/diskd  #table file
-echo " Disk Free: " >  /var/www/html/diskd  && df -h >  /var/www/html/diskdv #table file
+echo " Disk Usage: " > /var/www/html/diskd  && df >  /var/www/html/diskd  #table file
+
 
   
 ###to find reaing
