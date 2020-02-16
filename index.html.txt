@@ -32,6 +32,7 @@ table, th, td {
 <td>
 <a href="diskAvg">Disk Average</a></br>
 </td>
+<td>
 <a href="memoryHistory">Memory History</a></br>
 </td>
 <td>
