@@ -12,7 +12,7 @@ cat /var/www/html/cpu| awk '{ cpuitotal += $1; count2++ } END { print cpuitotal/
 echo -n "" >/var/www/html/cpu ## to clean the current five readings
 
 ##to find avg of values in cpu usedfile
-echo "CPU Used Average:\n" >>/var/www/html/cpuAvg 
+echo "CPU Used Average:" >>/var/www/html/cpuAvg 
 cat /var/www/html/cpuused| awk '{ cpuutotal += $1; count3++ } END { print cpuutotal/count3  }' >> /var/www/html/cpuAvg
 echo -n "" >/var/www/html/cpuused ## to clean the current five readings
 
