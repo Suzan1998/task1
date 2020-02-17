@@ -1,51 +1,36 @@
 #/bin/bash
-##dynamic files 
-echo " CPU UTILIZATION :" > /var/www/html/cpud  && mpstat -P ALL >  /var/www/html/cpud #table file 
-echo " Memory Usage :" >  /var/www/html/memoryd  && free -m >  /var/www/html/memoryd  #table file
-echo " Disk Usage: " > /var/www/html/diskd  && df >  /var/www/html/diskd  #table file
+##this script will be executed every five readings
+##to find avg of values in memory file
+memAvg="$(cat /var/www/html/memory| awk '{ memtotal += $1; count1++ } END { print memtotal/count1  }')"
+echo "Memory Used Avg at `date` = $memAvg
 
+$(cat /var/www/html/memoryAvg)" >/var/www/html/memoryAvg 
+echo -n "" >/var/www/html/memory ## to clean the current five readings 
 
-  
-###to find reaing
-## to find mem reading
-MEM="$(cat /var/www/html/memoryd | grep -i "Mem" | tr -s ' ' | cut -d  ' ' -f 3)"
-echo $MEM >>/var/www/html/memory
-echo "`date`    Memory Used:"$MEM >>/var/www/html/memoryHistory
-echo >>/var/www/html/memoryHistory#new line
+##to find avg of values in cpu idle file
+cpuiAvg="$(cat /var/www/html/cpu| awk '{ cpuitotal += $1; count2++ } END { print cpuitotal/count2  }')"
+echo "CPU Idle Average at `date` = $cpuiAvg
 
-## to find CPU reading
-CPUIDLE="$(cat /var/www/html/cpud | grep -i "all"  | tr -s ' ' | cut -d  ' ' -f 13)"
-echo $CPUIDLE >>/var/www/html/cpu
-echo "`date`    Cpu Idle:"$CPUIDLE >>/var/www/html/cpuHistory 
-echo  >>/var/www/html/cpuHistory
+$(cat  /var/www/html/cpuAvg)" >/var/www/html/cpuAvg
+echo -n "" >/var/www/html/cpu ## to clean the current five readings
 
-CPUUSED="$(mpstat -P ALL |grep -i "all" |awk '{print (100.00-$13)}')"
-echo $CPUUSED >>/var/www/html/cpuused
-echo "`date`   Cpu Used:"$CPUUSED >>/var/www/html/cpuHistory
-echo >>/var/www/html/cpuHistory
-## to find disk used reading
-##echo "Disk Used Avg at TimeStmamp `date`  " >>/var/www/html/diskAvg
-DISKUSED="$(df |grep -i "0" |awk '{diskutotal += $3; count4++ } END { print diskutotal  }')" ## it will get the sum of used readings coloumn
-echo $DISKUSED >>/var/www/html/disk 
-echo "`date`    Disk Used:"$DISKUSED >>/var/www/html/diskHistory
-echo  >>/var/www/html/diskHistory
-## to find disk free reading
-DISKFREE="$(df |grep -i "0" |awk '{diskftotal += $4; count6++ } END { print diskftotal  }')" ## it will get the sum of free readings coloumn
-echo $DISKFREE >>/var/www/html/diskfree 
-echo "`date`    Disk Free:"$DISKFREE >>/var/www/html/diskHistory
-echo >>/var/www/html/diskHistory
+##to find avg of values in cpu usedfile
+cpuuAvg="$(cat /var/www/html/cpuused| awk '{ cpuutotal += $1; count3++ } END { print cpuutotal/count3  }')"
+echo "CPU Used Average at `date` = $cpuuAvg
 
+ $(cat /var/www/html/cpuAvg)" > /var/www/html/cpuAvg
+echo -n "" >/var/www/html/cpuused ## to clean the current five readings
 
+##to find avg of values in doskused file
+diskuAvg="$(cat /var/www/html/disk| awk '{ diskuutotal += $1; count5++ } END { print diskuutotal/count5  }')"
+echo "Disk Used Avg at TimeStmamp `date` = $diskuAvg 
 
+$(cat /var/www/html/diskAvg)" > /var/www/html/diskAvg 
+echo -n "" >/var/www/html/disk ## to clean the current five readings
 
+##to find avg of values in disk free file
+diskfAvg="$(cat /var/www/html/diskfree| awk '{ diskfftotal += $1; count7++ } END { print diskfftotal/count7  }')"
+echo "Disk Free at TimeStamp `date` = $diskfAvg 
 
-
-
-
-
-
-   
- 
-  
-   
-   
+$(cat /var/www/html/diskAvg)" > /var/www/html/diskAvg
+echo -n "" >/var/www/html/diskfree ## to clean the current five readings
