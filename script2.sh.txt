@@ -2,30 +2,35 @@
 ##this script will be executed every five readings
 ##to find avg of values in memory file
 memAvg="$(cat /var/www/html/memory| awk '{ memtotal += $1; count1++ } END { print memtotal/count1  }')"
-echo "Memory Used Avg at `date` = "$memAvg >>/var/www/html/memoryAvg 
-echo >> /var/www/html/memoryAvg
+echo "Memory Used Avg at `date` = $memAvg
+
+$(cat /var/www/html/memoryAvg)" >/var/www/html/memoryAvg 
 echo -n "" >/var/www/html/memory ## to clean the current five readings 
 
 ##to find avg of values in cpu idle file
 cpuiAvg="$(cat /var/www/html/cpu| awk '{ cpuitotal += $1; count2++ } END { print cpuitotal/count2  }')"
-echo "CPU Idle Average at `date` = "$cpuiAvg >> /var/www/html/cpuAvg
-echo >>/var/www/html/cpuAvg
+echo "CPU Idle Average at `date` = $cpuiAvg
+
+$(cat  /var/www/html/cpuAvg)" >/var/www/html/cpuAvg
 echo -n "" >/var/www/html/cpu ## to clean the current five readings
 
 ##to find avg of values in cpu usedfile
 cpuuAvg="$(cat /var/www/html/cpuused| awk '{ cpuutotal += $1; count3++ } END { print cpuutotal/count3  }')"
-echo "CPU Used Average at `date` = "$cpuuAvg>> /var/www/html/cpuAvg
-echo  >> /var/www/html/cpuAvg
+echo "CPU Used Average at `date` = $cpuuAvg
+
+ $(cat /var/www/html/cpuAvg)" > /var/www/html/cpuAvg
 echo -n "" >/var/www/html/cpuused ## to clean the current five readings
 
 ##to find avg of values in doskused file
 diskuAvg="$(cat /var/www/html/disk| awk '{ diskuutotal += $1; count5++ } END { print diskuutotal/count5  }')"
-echo "Disk Used Avg at TimeStmamp `date` ="$diskuAvg >> /var/www/html/diskAvg 
-echo >> /var/www/html/diskAvg 
+echo "Disk Used Avg at TimeStmamp `date` = $diskuAvg 
+
+$(cat /var/www/html/diskAvg)" > /var/www/html/diskAvg 
 echo -n "" >/var/www/html/disk ## to clean the current five readings
 
 ##to find avg of values in disk free file
 diskfAvg="$(cat /var/www/html/diskfree| awk '{ diskfftotal += $1; count7++ } END { print diskfftotal/count7  }')"
-echo "Disk Free at TimeStamp `date` = "$diskfAvg >> /var/www/html/diskAvg
-echo >> /var/www/html/diskAvg 
+echo "Disk Free at TimeStamp `date` = $diskfAvg 
+
+$(cat /var/www/html/diskAvg)" > /var/www/html/diskAvg
 echo -n "" >/var/www/html/diskfree ## to clean the current five readings
